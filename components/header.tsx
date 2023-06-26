@@ -1,6 +1,16 @@
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { useDisclosure, Button, Flex, Box, Text, Link as ChakraLink } from "@chakra-ui/react";
+import {
+  useDisclosure,
+  Button,
+  Flex,
+  Box,
+  Text,
+  Link as ChakraLink,
+  HStack,
+  IconButton,
+  Stack,
+} from "@chakra-ui/react";
 import styles from "./header.module.css";
 import { LoginModal } from "./modals/modal";
 import { useState } from "react";
@@ -9,6 +19,33 @@ import keypLogo from "../assets/icons/keyp-logo.svg";
 import image from "../../assets/images/bg-image.jpg";
 import Image from "next/image";
 import AuthCodeForm from "./authcode-form";
+import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
+import { mainMenuItems } from "../utils/constants";
+
+interface NavLinkProps {
+  children: React.ReactNode;
+  href: string;
+}
+
+export const NavLink = ({ children, href }: NavLinkProps) => (
+  <ChakraLink
+    as={Link}
+    href={href}
+    px={2}
+    py={1}
+    rounded={"md"}
+    _hover={{
+      textDecoration: "none",
+      bg: "gray.200",
+      color: "gray.800",
+    }}
+    _activeLink={{
+      color: "teal.500",
+      fontWeight: "bold",
+    }}
+  >{children}</ChakraLink>
+);
+
 
 // The approach used in this component shows how to build a sign in and sign out
 // component that works on pages which support both client and server side
@@ -17,10 +54,17 @@ export default function Header() {
   const { data: session, status } = useSession();
   const loading = status === "loading";
 
-  // ...
-
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { isOpen: isOpenAuthCode, onOpen: onOpenAuthCode, onClose: onCloseAuthCode } = useDisclosure();
+  const {
+    isOpen: isOpenAuthCode,
+    onOpen: onOpenAuthCode,
+    onClose: onCloseAuthCode,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenMobileMenu,
+    onOpen: onOpenMobileMenu,
+    onClose: onCloseMobileMenu,
+  } = useDisclosure();
 
   return (
     <Box
@@ -39,76 +83,107 @@ export default function Header() {
       <noscript>
         <style>{`.nojs-show { opacity: 1; top: 0; }`}</style>
       </noscript>
-      <Box className="logo" flex="0 0 15%" w="15%">
-      <ChakraLink href="/">
-          Home
-          </ChakraLink>
+      <Box className="logo" fontFamily="heading"
+      flex={{base: "0 0 45%", md:"0 0 15%"}}
+      w={{base: "45%", md: "15%"}}
+        zIndex={20}>
+        <NavLink href="/">KeypTest</NavLink>
       </Box>
-      <Box as="nav" maxW="5xl">
-        <ul className={styles.navItems}>
-          <li className={styles.navItem}>
-            <Link href="/client">Client</Link>
-          </li>
-          <li className={styles.navItem}>
-            <Link href="/server">Server</Link>
-          </li>
-          <li className={styles.navItem}>
-            <Link href="/protected">Protected</Link>
-          </li>
-          <li className={styles.navItem}>
-            <Link href="/api-example">API</Link>
-          </li>
-          <li className={styles.navItem}>
-            <Link href="/admin">Admin</Link>
-          </li>
-          <li className={styles.navItem}>
-            <Link href="/me">Me</Link>
-          </li>
-        </ul>
-      </Box>
-      <Box flex="0 0 15%" w="15%" display="flex" alignItems="center" justifyContent="flex-end">
-        {/* <div
-          className={`nojs-show ${
-            !session && loading ? styles.loading : styles.loaded
-          }`}
-        > */}
-          {!session && (
-            <Flex
-              flexFlow="row"
-              justifyContent="space-between"
-              alignItems="center"
-              fontSize="sm"
+      <HStack as="nav" maxW="5xl" display={{base: 'none', md: 'flex'}}>
+        {mainMenuItems.map((item) => {
+          if (item.title.includes('Home')) return null;
+
+          return (
+            <NavLink href={item.path}>{item.title}</NavLink>
+          )
+        })}
+      </HStack>
+      <Box
+        flex={{base: "0 0 45%", md:"0 0 15%"}}
+        w={{base: "45%", md: "15%"}}
+        display="flex"
+        alignItems="center"
+        justifyContent="flex-end"
+        zIndex={20}
+      >
+        {!session && (
+          <Flex
+            flexFlow="row"
+            justifyContent="space-between"
+            alignItems="center"
+            fontSize="sm"
+          >
+            <Button onClick={onOpen} size="xs">
+              Sign in
+            </Button>
+          </Flex>
+        )}
+        {session?.user && (
+          <>
+            {session.user.image && (
+              <span
+                style={{ backgroundImage: `url('${session.user.image}')` }}
+                className={styles.avatar}
+              />
+            )}
+            <span className={styles.signedInText}>
+              <small>Signed in as</small>
+              <br />
+              <strong>{session.user.email ?? session.user.name}</strong>
+            </span>
+            <a
+              href={`/api/auth/signout`}
+              className={styles.button}
+              onClick={(e) => {
+                e.preventDefault();
+                signOut();
+              }}
             >
-              <Button onClick={onOpen} size="xs">Sign in</Button>
-            </Flex>
-          )}
-          {session?.user && (
-            <>
-              {session.user.image && (
-                <span
-                  style={{ backgroundImage: `url('${session.user.image}')` }}
-                  className={styles.avatar}
-                />
-              )}
-              <span className={styles.signedInText}>
-                <small>Signed in as</small>
-                <br />
-                <strong>{session.user.email ?? session.user.name}</strong>
-              </span>
-              <a
-                href={`/api/auth/signout`}
-                className={styles.button}
-                onClick={(e) => {
-                  e.preventDefault();
-                  signOut();
-                }}
-              >
-                Sign out
-              </a>
-            </>
-          )}
-        {/* </div> */}
+              Sign out
+            </a>
+          </>
+        )}
+        <Button
+          aria-label="Open Menu"
+          display={{ md: "none" }}
+          size={"sm"}
+          pr={0}
+          variant={"ghost"}
+          colorScheme={"white"}
+          onClick={isOpenMobileMenu ? onCloseMobileMenu : onOpenMobileMenu}
+        >
+          <Icon icon={isOpenMobileMenu ? 'ic:round-close' : 'ic:round-menu'} height={30} width={30} />
+        </Button>
       </Box>
+
+      {isOpenMobileMenu ? (
+        <Box
+          position={"absolute"}
+          pb={4}
+          display={{base: 'flex', md: "none" }}
+          flexFlow="column"
+          justifyContent="center"
+          alignItems="center"
+          w="full"
+          maxW="full"
+          h="100vh"
+          bg="gray.900"
+          color="white"
+          top={0}
+          left={0}
+        >
+          <Stack as="nav" spacing={4}>
+                  {mainMenuItems.map((item) => {
+          if (item.title.includes('Home')) return null;
+
+          return (
+            <NavLink href={item.path}>{item.title}</NavLink>
+          )
+        })}
+          </Stack>
+        </Box>
+      ) : null}
+
       <LoginModal
         headerText="Welcome to Minetest!"
         isOpen={isOpen}
@@ -131,8 +206,8 @@ export default function Header() {
           <Icon icon="ic:round-login" width={20} height={20} />
           Login with Keyp
           <Image src={keypLogo} alt="Keyp Logo" width={20} height={20} />
-          </Button>
-          {/* </Box> */}
+        </Button>
+        {/* </Box> */}
         <Box as="p" color="body" fontSize="sm">
           First time?{" "}
           <Button
@@ -157,7 +232,6 @@ export default function Header() {
         </Text>
         <AuthCodeForm />
       </LoginModal>
-
     </Box>
   );
 }

@@ -12,7 +12,7 @@ const pinInputFieldStyles = {
   color: "buttonText",
   h: 12,
   _focus: {
-    bgColor: "gray.400",
+    bgColor: "gray.600",
     color: "gray.200",
   },
   _focusVisible: {
