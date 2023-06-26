@@ -4,6 +4,7 @@ body {
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   padding: 0;
   color: #bababa;
+  background-color: #1a202c;
   background-image: url('/assets/images/bg-image.jpg');
   background-size: cover;
   background-repeat: no-repeat;

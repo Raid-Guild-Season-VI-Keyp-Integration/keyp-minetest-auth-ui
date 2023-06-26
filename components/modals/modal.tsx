@@ -7,9 +7,11 @@ import keypLogo from '../../assets/icons/keyp-logo.svg';
 interface LoginModalProps {
   isOpen: boolean;
   onClose: () => void;
+  headerText: string;
+  children: React.ReactNode;
 }
 
-const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
+const LoginModal = ({ isOpen, onClose, headerText, children }: LoginModalProps) => {
 
   return (
     <Modal
@@ -34,21 +36,11 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
             zIndex={10}
           >
         <ModalHeader color="heading" textAlign="center" fontFamily="heading" fontWeight="400" fontSize="2xl" >
-          Welcome to Minetest!
+          {headerText}
         </ModalHeader>
         <ModalCloseButton color="body" size="xl" top={5} right={5} />
             <ModalBody display="flex" flexFlow="column" alignItems="center" justifyContent="center" gap="8">
-              <Text fontSize="md" color="body" textAlign="center">
-              Minetest is an open source voxel game engine with easy modding and game creation.
-              </Text>
-              <Button display="inline-flex" alignItems="center" textTransform="uppercase" justifyContent="space-between" fontWeight={400} gap={3}>
-                <Icon icon="ic:round-login" width={20} height={20}  />
-                Login with Keyp
-                <Image src={keypLogo} alt="Keyp Logo" width={20} height={20} />
-              </Button>
-              <Box as="p" color="body" fontSize="sm">
-                First time? <Button variant="link" size="sm" color="white" textDecoration="underline" onClick={onClose}>Create an account</Button>
-              </Box>
+              {children}
           </ModalBody>
         </Box>
           <Box position="absolute" left={5} top={5} w="full" h="full" border="5px solid" borderColor="whiteAlpha.300" rounded="none" bgColor="blackAlpha.200" backdropFilter="auto" backdropBlur="40px" zIndex={0} />

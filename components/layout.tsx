@@ -7,7 +7,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <>
       <Header />
-      <Box as="main" pt={20}>
+      <Box as="main" display="flex" alignItems="flex-start" pt="100px" height="calc(100vh - 70px)">
         <Container>
           {children}
           </Container>

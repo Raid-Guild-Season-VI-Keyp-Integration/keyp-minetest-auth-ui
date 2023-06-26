@@ -7,6 +7,14 @@ import type { Session } from "next-auth"
 import '@fontsource/courier-prime'
 
 
+const styles = {
+  global: {
+    'html, body': {
+      bg: 'gray.900',
+      color: 'body',
+    },
+  },
+}
 
 const fonts = {
   heading: 'Courier Prime, monospace',
@@ -20,13 +28,19 @@ const colors = {
     100: '#ebebeb',
     200: '#d0d0d0',
     300: '#b5b5b5',
+    400: '#7f7f7f',
+    500: '#494949',
+    600: '#424242',
+    700: '#383838',
+    800: '#2e2e2e',
+    900: '#242424',
   },
   heading: '#E3E3E3',
   body: '#BABABA',
   buttonText: '#2D2D2D',
 }
 
-export const theme = extendTheme({ colors, fonts })
+export const theme = extendTheme({ styles, colors, fonts })
 
 // Use of the <SessionProvider> is mandatory to allow components that call
 // `useSession()` anywhere in your application to access the `session` object.
