@@ -114,10 +114,11 @@ export default function Header() {
         isOpen={isOpen}
         onClose={onClose}
       >
-        <Text fontSize="md" color="body" textAlign="center">
+        <Text fontSize="md" color="body" textAlign="center" mb={0}>
           Minetest is an open source voxel game engine with easy modding and
           game creation.
         </Text>
+        {/* <Box py={5}> */}
         <Button
           display="inline-flex"
           alignItems="center"
@@ -130,7 +131,8 @@ export default function Header() {
           <Icon icon="ic:round-login" width={20} height={20} />
           Login with Keyp
           <Image src={keypLogo} alt="Keyp Logo" width={20} height={20} />
-        </Button>
+          </Button>
+          {/* </Box> */}
         <Box as="p" color="body" fontSize="sm">
           First time?{" "}
           <Button
