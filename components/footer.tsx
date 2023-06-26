@@ -1,28 +1,29 @@
 import Link from "next/link"
 import styles from "./footer.module.css"
 import packageJSON from "../package.json"
+import { Box, ListItem, UnorderedList } from "@chakra-ui/react"
 
 export default function Footer() {
   return (
-    <footer className={styles.footer}>
+    <Box as="footer" className={styles.footer} display="flex" justifyItems="center">
       <hr />
-      <ul className={styles.navItems}>
-        <li className={styles.navItem}>
+      <UnorderedList className={styles.navItems} maxW="5xl" mx="auto">
+        <ListItem className={styles.navItem}>
           <a href="https://next-auth.js.org">Documentation</a>
-        </li>
-        <li className={styles.navItem}>
+        </ListItem>
+        <ListItem className={styles.navItem}>
           <a href="https://www.npmjs.com/package/next-auth">NPM</a>
-        </li>
-        <li className={styles.navItem}>
+        </ListItem>
+        <ListItem className={styles.navItem}>
           <a href="https://github.com/nextauthjs/next-auth-example">GitHub</a>
-        </li>
-        <li className={styles.navItem}>
+        </ListItem>
+        <ListItem className={styles.navItem}>
           <Link href="/policy">Policy</Link>
-        </li>
-        <li className={styles.navItem}>
+        </ListItem>
+        <ListItem className={styles.navItem}>
           <em>next-auth@{packageJSON.dependencies["next-auth"]}</em>
-        </li>
-      </ul>
-    </footer>
+        </ListItem>
+      </UnorderedList>
+    </Box>
   )
 }

@@ -1,13 +1,13 @@
 /* Set min-height to avoid page reflow while session loading */
 .signedInStatus {
-  display: block;
+  /* display: block;
   min-height: 4rem;
-  width: 100%;
+  width: 100%; */
 }
 
 .loading,
 .loaded {
-  position: relative;
+  /* position: relative; */
   top: 0;
   opacity: 1;
   overflow: hidden;
@@ -23,7 +23,7 @@
   opacity: 0;
 }
 
-.signedInText,
+/* .signedInText,
 .notSignedInText {
   position: absolute;
   padding-top: 0.8rem;
@@ -35,7 +35,7 @@
   display: inherit;
   z-index: 1;
   line-height: 1.3rem;
-}
+} */
 
 .signedInText {
   padding-top: 0rem;
@@ -52,7 +52,7 @@
   background-repeat: no-repeat;
 }
 
-.button,
+/* .button,
 .buttonPrimary {
   float: right;
   margin-right: -0.4rem;
@@ -66,7 +66,7 @@
   z-index: 10;
   background-color: transparent;
   color: #555;
-}
+} */
 
 .buttonPrimary {
   background-color: #346df1;

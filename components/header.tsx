@@ -1,6 +1,9 @@
 import Link from "next/link"
 import { signIn, signOut, useSession } from "next-auth/react"
+import { useDisclosure, Button, Flex, Box } from "@chakra-ui/react"
 import styles from "./header.module.css"
+import { LoginModal } from "./modals/modal"
+import { useState } from "react"
 
 // The approach used in this component shows how to build a sign in and sign out
 // component that works on pages which support both client and server side
@@ -9,23 +12,28 @@ export default function Header() {
   const { data: session, status } = useSession()
   const loading = status === "loading"
 
+  // ...
+
+  const {isOpen, onOpen, onClose} = useDisclosure()
+
   return (
-    <header>
+    <Box as="header" display="flex" flexFlow="column" position="fixed" justifyContent="center" alignItems="center" w="full" maxW="full" h="20">
       <noscript>
         <style>{`.nojs-show { opacity: 1; top: 0; }`}</style>
       </noscript>
-      <div className={styles.signedInStatus}>
-        <p
+      <Box className={styles.signedInStatus} maxW="xl" >
+        <div
           className={`nojs-show ${
             !session && loading ? styles.loading : styles.loaded
           }`}
         >
           {!session && (
-            <>
+            <Flex flexFlow="row" justifyContent="space-between" alignItems="center">
               <span className={styles.notSignedInText}>
                 You are not signed in
               </span>
-              <a
+              <Button onClick={onOpen} >Sign in with Keyp</Button>
+              {/* <a
                 href={`/api/auth/signin`}
                 className={styles.buttonPrimary}
                 onClick={(e) => {
@@ -34,8 +42,8 @@ export default function Header() {
                 }}
               >
                 Sign in
-              </a>
-            </>
+              </a> */}
+            </Flex>
           )}
           {session?.user && (
             <>
@@ -62,8 +70,8 @@ export default function Header() {
               </a>
             </>
           )}
-        </p>
-      </div>
+        </div>
+      </Box>
       <nav>
         <ul className={styles.navItems}>
           <li className={styles.navItem}>
@@ -89,6 +97,7 @@ export default function Header() {
           </li>
         </ul>
       </nav>
-    </header>
+      <LoginModal isOpen={isOpen} onClose={onClose} />
+    </Box>
   )
 }
