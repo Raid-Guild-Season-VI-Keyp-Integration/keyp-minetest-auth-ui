@@ -97,6 +97,8 @@ const LoginModal = ({
         h="full"
         zIndex={0}
         overflow="hidden"
+        opacity={isOpen ? 1 : 0}
+        transition="opacity 0.3s ease-in-out"
       >
         <Image
           src={image}

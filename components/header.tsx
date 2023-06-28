@@ -18,7 +18,7 @@ import { Icon } from "@iconify/react";
 import keypLogo from "../assets/icons/keyp-logo.svg";
 import image from "../../assets/images/bg-image.jpg";
 import Image from "next/image";
-import AuthCodeForm from "./authcode-form";
+import AuthCode from "./authcode";
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { mainMenuItems } from "../utils/constants";
 
@@ -87,7 +87,7 @@ export default function Header() {
       flex={{base: "0 0 45%", md:"0 0 15%"}}
       w={{base: "45%", md: "15%"}}
         zIndex={20}>
-        <NavLink href="/">KeypTest</NavLink>
+        <NavLink href="/">KeypMine</NavLink>
       </Box>
       <HStack as="nav" maxW="5xl" display={{base: 'none', md: 'flex'}}>
         {mainMenuItems.map((item) => {
@@ -228,9 +228,9 @@ export default function Header() {
         onClose={onCloseAuthCode}
       >
         <Text fontSize="md" color="body" textAlign="center">
-          Please enter your six character code to login to the game
+          Copy the auth code below and paste it into to the login form in-game to authenticate. Enjoy!
         </Text>
-        <AuthCodeForm />
+        <AuthCode code="342674" />
       </LoginModal>
     </Box>
   );
