@@ -3,7 +3,6 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 // @ts-ignore
-import { LoginPortal } from "@usekeyp/ui-kit";
 import { signInKeyp } from "@usekeyp/js-sdk";
 import Layout from "../components/layout";
 import { Icon } from "@iconify/react";
@@ -91,10 +90,6 @@ const Login = () => {
           <Stack direction="column" spacing={4} textAlign="left">
             <div className="justify-center">
               <KeypButtons />
-              {/* <LoginPortal
-                providers={["GOOGLE", "DISCORD"]}
-                onClick={handleLoginClick}
-              /> */}
             </div>
           </Stack>
         </Flex>

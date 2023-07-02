@@ -23,6 +23,7 @@ import AuthCode from "./authcode";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { mainMenuItems } from "../utils/constants";
 import { v4 as uuidv4 } from "uuid";
+import { useRouter } from "next/router";
 interface NavLinkProps {
   children: React.ReactNode;
   href: string;
@@ -55,6 +56,8 @@ export const NavLink = ({ children, href }: NavLinkProps) => (
 export default function Header() {
   const { data: session, status } = useSession();
   const loading = status === "loading";
+  console.log({ session });
+  const router = useRouter();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -67,6 +70,12 @@ export default function Header() {
     onOpen: onOpenMobileMenu,
     onClose: onCloseMobileMenu,
   } = useDisclosure();
+
+  const handleSignout = (e: Event) => {
+    e.preventDefault();
+    signOut();
+    router.push(`/api/auth/signout`);
+  };
 
   return (
     <Box
@@ -126,7 +135,7 @@ export default function Header() {
           </Flex>
         )}
         {session?.user && (
-          <>
+          <Box display="inline-flex" gap={3}>
             {session.user.image && (
               <span
                 style={{ backgroundImage: `url('${session.user.image}')` }}
@@ -134,21 +143,16 @@ export default function Header() {
               />
             )}
             <span className={styles.signedInText}>
-              <small>Signed in as</small>
-              <br />
-              <strong>{session.user.email ?? session.user.name}</strong>
+              Signed in as <strong>{session.user.email ?? session.user.username}</strong>
             </span>
-            <a
-              href={`/api/auth/signout`}
-              className={styles.button}
-              onClick={(e) => {
-                e.preventDefault();
-                signOut();
-              }}
+            <Button
+              aria-label="Sign out"
+              size="xs"
+              onClick={(e) => handleSignout(e)}
             >
               Sign out
-            </a>
-          </>
+            </Button>
+          </Box>
         )}
         <Button
           aria-label="Open Menu"
@@ -202,22 +206,8 @@ export default function Header() {
           Minetest is an open source voxel game engine with easy modding and
           game creation.
         </Text>
-        {/* <Box py={5}> */}
-        {/* <Button
-          display="inline-flex"
-          alignItems="center"
-          textTransform="uppercase"
-          justifyContent="space-between"
-          fontWeight={400}
-          gap={3}
-          onClick={onOpenAuthCode}
-        >
-        <Icon icon="ic:round-login" width={20} height={20} />
-        Login with Keyp
-        <Image src={keypLogo} alt="Keyp Logo" width={20} height={20} />
-      </Button> */}
         <KeypButtons />
-        {/* </Box> */}
+
         <Box as="p" color="body" fontSize="sm">
           First time?{" "}
           <Button

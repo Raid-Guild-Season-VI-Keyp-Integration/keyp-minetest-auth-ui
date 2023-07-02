@@ -2,12 +2,12 @@ import { useSession } from "next-auth/react"
 import Layout from "../components/layout"
 
 export default function MePage() {
-  const { data } = useSession()
-  console.log({data});
+  const session = useSession()
+  console.log({session});
 
   return (
     <Layout>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <pre>{JSON.stringify(session, null, 2)}</pre>
     </Layout>
   )
 }

@@ -32,7 +32,13 @@ const KeypProvider: OAuthConfig<any> = {
 // https://next-auth.js.org/configuration/options
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SESSION_COOKIE_SECRET,
-  providers: [KeypProvider],
+  providers: [
+    KeypProvider,
+    GithubProvider({
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET,
+    }),
+  ],
   callbacks: {
     async jwt({ token, account, profile }) {
       if (account) {
