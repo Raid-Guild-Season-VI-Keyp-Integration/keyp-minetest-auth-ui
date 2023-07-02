@@ -44,6 +44,17 @@ export const KeypButtons = () => {
         color="gray.900"
         w={"100%"}
         maxW={"600px"}
+        onClick={() => handleLoginClick("GITHUB")}
+        isLoading={isLoading}
+      >
+        <Icon icon="ic:round-login" width={25} height={25} />&nbsp;
+        Github
+      </Button>
+      <Button
+        m={"2"}
+        color="gray.900"
+        w={"100%"}
+        maxW={"600px"}
         onClick={() => handleLoginClick("DISCORD")}
         isLoading={isLoading}
       >
