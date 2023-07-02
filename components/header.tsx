@@ -18,10 +18,11 @@ import { Icon } from "@iconify/react";
 import keypLogo from "../assets/icons/keyp-logo.svg";
 import image from "../../assets/images/bg-image.jpg";
 import Image from "next/image";
+import { KeypButtons } from "../pages/login";
 import AuthCode from "./authcode";
-import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
+import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { mainMenuItems } from "../utils/constants";
-
+import { v4 as uuidv4 } from "uuid";
 interface NavLinkProps {
   children: React.ReactNode;
   href: string;
@@ -43,9 +44,10 @@ export const NavLink = ({ children, href }: NavLinkProps) => (
       color: "teal.500",
       fontWeight: "bold",
     }}
-  >{children}</ChakraLink>
+  >
+    {children}
+  </ChakraLink>
 );
-
 
 // The approach used in this component shows how to build a sign in and sign out
 // component that works on pages which support both client and server side
@@ -83,24 +85,29 @@ export default function Header() {
       <noscript>
         <style>{`.nojs-show { opacity: 1; top: 0; }`}</style>
       </noscript>
-      <Box className="logo" fontFamily="heading"
-      flex={{base: "0 0 45%", md:"0 0 15%"}}
-      w={{base: "45%", md: "15%"}}
-        zIndex={20}>
+      <Box
+        className="logo"
+        fontFamily="heading"
+        flex={{ base: "0 0 45%", md: "0 0 15%" }}
+        w={{ base: "45%", md: "15%" }}
+        zIndex={20}
+      >
         <NavLink href="/">KeypMine</NavLink>
       </Box>
-      <HStack as="nav" maxW="5xl" display={{base: 'none', md: 'flex'}}>
+      <HStack as="nav" maxW="5xl" display={{ base: "none", md: "flex" }}>
         {mainMenuItems.map((item) => {
-          if (item.title.includes('Home')) return null;
+          if (item.title.includes("Home")) return null;
 
           return (
-            <NavLink href={item.path}>{item.title}</NavLink>
-          )
+            <NavLink key={uuidv4()} href={item.path}>
+              {item.title}
+            </NavLink>
+          );
         })}
       </HStack>
       <Box
-        flex={{base: "0 0 45%", md:"0 0 15%"}}
-        w={{base: "45%", md: "15%"}}
+        flex={{ base: "0 0 45%", md: "0 0 15%" }}
+        w={{ base: "45%", md: "15%" }}
         display="flex"
         alignItems="center"
         justifyContent="flex-end"
@@ -152,7 +159,11 @@ export default function Header() {
           colorScheme={"white"}
           onClick={isOpenMobileMenu ? onCloseMobileMenu : onOpenMobileMenu}
         >
-          <Icon icon={isOpenMobileMenu ? 'ic:round-close' : 'ic:round-menu'} height={30} width={30} />
+          <Icon
+            icon={isOpenMobileMenu ? "ic:round-close" : "ic:round-menu"}
+            height={30}
+            width={30}
+          />
         </Button>
       </Box>
 
@@ -160,7 +171,7 @@ export default function Header() {
         <Box
           position={"absolute"}
           pb={4}
-          display={{base: 'flex', md: "none" }}
+          display={{ base: "flex", md: "none" }}
           flexFlow="column"
           justifyContent="center"
           alignItems="center"
@@ -173,19 +184,17 @@ export default function Header() {
           left={0}
         >
           <Stack as="nav" spacing={4}>
-                  {mainMenuItems.map((item) => {
-          if (item.title.includes('Home')) return null;
+            {mainMenuItems.map((item) => {
+              if (item.title.includes("Home")) return null;
 
-          return (
-            <NavLink href={item.path}>{item.title}</NavLink>
-          )
-        })}
+              return <NavLink href={item.path}>{item.title}</NavLink>;
+            })}
           </Stack>
         </Box>
       ) : null}
 
       <LoginModal
-        headerText="Welcome to Minetest!"
+        headerText="Login to Minetest!"
         isOpen={isOpen}
         onClose={onClose}
       >
@@ -194,7 +203,7 @@ export default function Header() {
           game creation.
         </Text>
         {/* <Box py={5}> */}
-        <Button
+        {/* <Button
           display="inline-flex"
           alignItems="center"
           textTransform="uppercase"
@@ -203,10 +212,11 @@ export default function Header() {
           gap={3}
           onClick={onOpenAuthCode}
         >
-          <Icon icon="ic:round-login" width={20} height={20} />
-          Login with Keyp
-          <Image src={keypLogo} alt="Keyp Logo" width={20} height={20} />
-        </Button>
+        <Icon icon="ic:round-login" width={20} height={20} />
+        Login with Keyp
+        <Image src={keypLogo} alt="Keyp Logo" width={20} height={20} />
+      </Button> */}
+        <KeypButtons />
         {/* </Box> */}
         <Box as="p" color="body" fontSize="sm">
           First time?{" "}
@@ -228,7 +238,8 @@ export default function Header() {
         onClose={onCloseAuthCode}
       >
         <Text fontSize="md" color="body" textAlign="center">
-          Copy the auth code below and paste it into to the login form in-game to authenticate. Enjoy!
+          Copy the auth code below and paste it into to the login form in-game
+          to authenticate. Enjoy!
         </Text>
         <AuthCode code="342674" />
       </LoginModal>

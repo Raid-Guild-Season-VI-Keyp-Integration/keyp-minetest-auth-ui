@@ -9,6 +9,7 @@ const numberStyles = {
   bgColor: "transparent",
   fontSize: "5xl",
   color: "whiteAlpha.700",
+  textAlign: "center",
   h: 12,
 };
 
@@ -19,7 +20,7 @@ interface AuthCodeProps {
 const AuthCode = ({ code }: AuthCodeProps) => {
   const codeArray: string[] = code.split("");
   return (
-    <HStack gap={6} bgColor="transparent">
+    <HStack gap={6} bgColor="transparent" alignItems="center" justifyContent="center">
       {codeArray.map((number) => (
         <Box key={uuidv4()} as="span" sx={numberStyles}>
           {number}
