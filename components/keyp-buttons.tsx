@@ -32,11 +32,11 @@ export const KeypButtons = () => {
         color="gray.900"
         w={"100%"}
         maxW={"600px"}
-        onClick={() => handleLoginClick("GITHUB")}
+        onClick={() => handleLoginClick("TWITTER")}
         isLoading={loading}
       >
         <Icon icon="ic:round-login" width={25} height={25} />&nbsp;
-        Github
+        Twitter
       </Button>
       <Button
         m={"2"}
