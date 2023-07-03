@@ -12,7 +12,7 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import styles from "./header.module.css";
-import { LoginModal } from "./modals/modal";
+import LoginModal from "./modals/login-modal";
 import { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
 import KeypButtons from "./keyp-buttons";
@@ -132,9 +132,7 @@ export default function Header() {
             alignItems="center"
             fontSize="sm"
           >
-            <Button onClick={onOpen} size="xs">
-              Sign in
-            </Button>
+            <LoginModal btnSize="xs" />
           </Flex>
         )}
         {session?.user && (
@@ -203,33 +201,7 @@ export default function Header() {
         </Box>
       ) : null}
 
-      <LoginModal
-        headerText="Login to Minetest!"
-        isOpen={isOpen}
-        onClose={onClose}
-      >
-        <Text fontSize="md" color="body" textAlign="center" mb={0}>
-          Minetest is an open source voxel game engine with easy modding and
-          game creation.
-        </Text>
-        <KeypButtons />
-      </LoginModal>
 
-      <LoginModal
-        headerText={`Welcome ${session?.user?.username ?? "to Minetest"}!`}
-        isOpen={isOpenAuthCode}
-        onClose={onCloseAuthCode}
-      >
-        <Text fontSize="md" color="body" textAlign="center">
-          Copy the auth code below and paste it into to the login form in-game
-          to authenticate. Enjoy!
-        </Text>
-        {session && (
-          <Box fontSize="xs" maxW="2xl" wordBreak="break-word">
-            <AuthCode code={session.user.accessToken ?? ""} />
-          </Box>
-        )}
-      </LoginModal>
     </Box>
   );
 }

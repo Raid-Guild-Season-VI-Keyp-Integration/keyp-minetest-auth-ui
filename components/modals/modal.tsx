@@ -14,19 +14,19 @@ import Image from "next/image";
 import { Icon } from "@iconify/react";
 import keypLogo from "../../assets/icons/keyp-logo.svg";
 
-interface LoginModalProps {
+interface KeypMineModalProps {
   isOpen: boolean;
   onClose: () => void;
   headerText: string;
   children: React.ReactNode;
 }
 
-const LoginModal = ({
+const KeypMineModal = ({
   isOpen,
   onClose,
   headerText,
   children,
-}: LoginModalProps) => {
+}: KeypMineModalProps) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl" isCentered>
       <ModalOverlay
@@ -118,4 +118,4 @@ const LoginModal = ({
   );
 };
 
-export { LoginModal };
+export { KeypMineModal };
