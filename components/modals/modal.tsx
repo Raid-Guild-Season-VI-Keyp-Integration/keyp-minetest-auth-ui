@@ -33,6 +33,9 @@ const LoginModal = ({
         backgroundColor="blackAlpha.600"
         backdropFilter="auto"
         backdropBlur="5px"
+        opacity={isOpen ? 1 : 0}
+        transform={isOpen ? "translateY(0)" : "translateY(-20px)"}
+        transition="opacity 0.3s 0.5s ease-in-out"
       />
       <ModalContent rounded="none" bgColor="transparent">
         <Box position="relative">
@@ -98,7 +101,7 @@ const LoginModal = ({
         zIndex={0}
         overflow="hidden"
         opacity={isOpen ? 1 : 0}
-        transition="opacity 0.3s ease-in-out"
+        transition="opacity 0.3s 0.5s ease-in-out"
       >
         <Image
           src={image}

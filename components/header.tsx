@@ -71,18 +71,18 @@ export default function Header() {
     onClose: onCloseMobileMenu,
   } = useDisclosure();
 
-  const handleSignout = (e: Event) => {
-    e.preventDefault();
+  const handleSignout = (event: any) => {
+    event.preventDefault();
     signOut();
     router.push(`/`);
   };
-  const isAuthPage = router.pathname.includes("protected");
+  // const isAuthPage = router.pathname.includes("protected");
 
-  useEffect(() => {
-    if (session && isAuthPage) {
-      !isOpenAuthCode && onOpenAuthCode();
-    }
-  }, [session]);
+  // useEffect(() => {
+  //   if (session && isAuthPage) {
+  //     !isOpenAuthCode && onOpenAuthCode();
+  //   }
+  // }, [session]);
 
   return (
     <Box
@@ -217,19 +217,6 @@ export default function Header() {
           game creation.
         </Text>
         <KeypButtons />
-
-        <Box as="p" color="body" fontSize="sm">
-          First time?{" "}
-          <Button
-            variant="link"
-            size="sm"
-            color="white"
-            textDecoration="underline"
-            onClick={onClose}
-          >
-            Create an account
-          </Button>
-        </Box>
       </LoginModal>
 
       <LoginModal

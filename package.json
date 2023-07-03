@@ -26,6 +26,7 @@
     "@fontsource/courier-prime": "^5.0.3",
     "@usekeyp/js-sdk": "^0.1.7",
     "@usekeyp/ui-kit": "^0.1.6",
+    "axios": "^1.4.0",
     "framer-motion": "^10.12.17",
     "inter": "link:@fontsource-variable/inter",
     "next": "latest",

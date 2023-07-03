@@ -13,9 +13,6 @@ export default function Footer() {
         <ListItem className={styles.navItem}>
           <Link href="https://github.com/Raid-Guild-Season-VI-Keyp-Integration" isExternal>GitHub</Link>
         </ListItem>
-        <ListItem className={styles.navItem}>
-          <em>next-auth@{packageJSON.dependencies["next-auth"]}</em>
-        </ListItem>
       </UnorderedList>
     </Box>
   )
