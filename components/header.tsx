@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import styles from "./header.module.css";
 import { LoginModal } from "./modals/modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
 import keypLogo from "../assets/icons/keyp-logo.svg";
 import image from "../../assets/images/bg-image.jpg";
@@ -74,8 +74,15 @@ export default function Header() {
   const handleSignout = (e: Event) => {
     e.preventDefault();
     signOut();
-    router.push(`/api/auth/signout`);
+    router.push(`/`);
   };
+  const isAuthPage = router.pathname.includes("protected");
+
+  useEffect(() => {
+    if (session && isAuthPage) {
+      !isOpenAuthCode && onOpenAuthCode();
+    }
+  }, [session]);
 
   return (
     <Box
@@ -142,9 +149,12 @@ export default function Header() {
                 className={styles.avatar}
               />
             )}
-            <span className={styles.signedInText}>
-              Signed in as <strong>{session.user.email ?? session.user.username}</strong>
-            </span>
+            <Text fontSize="xs">
+              <span className={styles.signedInText}>
+                Signed in as{" "}
+                <strong>{session.user.email ?? session.user.username}</strong>
+              </span>
+            </Text>
             <Button
               aria-label="Sign out"
               size="xs"
@@ -223,7 +233,7 @@ export default function Header() {
       </LoginModal>
 
       <LoginModal
-        headerText="Welcome to Minetest!"
+        headerText={`Welcome ${session?.user?.username ?? "to Minetest"}!`}
         isOpen={isOpenAuthCode}
         onClose={onCloseAuthCode}
       >
@@ -231,7 +241,11 @@ export default function Header() {
           Copy the auth code below and paste it into to the login form in-game
           to authenticate. Enjoy!
         </Text>
-        <AuthCode code="342674" />
+        {session && (
+          <Box fontSize="xs" maxW="2xl" wordBreak="break-word">
+            <AuthCode code={session.user.accessToken ?? ""} />
+          </Box>
+        )}
       </LoginModal>
     </Box>
   );

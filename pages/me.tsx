@@ -2,7 +2,7 @@ import { useSession } from "next-auth/react"
 import Layout from "../components/layout"
 
 export default function MePage() {
-  const session = useSession()
+  const {data: session} = useSession()
   console.log({session});
 
   return (

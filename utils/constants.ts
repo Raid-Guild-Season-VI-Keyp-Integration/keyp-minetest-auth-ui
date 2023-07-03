@@ -8,10 +8,6 @@ const mainMenuItems = [
     path: '/client',
   },
   {
-    title: 'Server',
-    path: '/server',
-  },
-  {
     title: 'Protected',
     path: '/protected',
   },

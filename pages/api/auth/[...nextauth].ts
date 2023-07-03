@@ -1,17 +1,15 @@
 import NextAuth, { NextAuthOptions } from "next-auth"
 import { OAuthConfig } from "next-auth/providers";
-import GithubProvider from "next-auth/providers/github"
-
 
 const KEYP_API_DOMAIN =
-  process.env.NEXT_PUBLIC_KEYP_API_DOMAIN || "https://api.usekeyp.com";
+  process.env.KEYP_API_DOMAIN || "https://api.usekeyp.com";
 
 const KeypProvider: OAuthConfig<any> = {
   id: "keyp",
   name: "Keyp",
   type: "oauth",
   version: "2.0",
-  clientId: process.env.NEXT_PUBLIC_KEYP_CLIENT_ID,
+  clientId: process.env.KEYP_CLIENT_ID,
   wellKnown: `${KEYP_API_DOMAIN}/oauth/.well-known/openid-configuration`,
   checks: ["pkce"],
   authorization: { params: { scope: "openid profile email" } },
@@ -32,13 +30,7 @@ const KeypProvider: OAuthConfig<any> = {
 // https://next-auth.js.org/configuration/options
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SESSION_COOKIE_SECRET,
-  providers: [
-    KeypProvider,
-    GithubProvider({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
-    }),
-  ],
+  providers: [KeypProvider],
   callbacks: {
     async jwt({ token, account, profile }) {
       if (account) {

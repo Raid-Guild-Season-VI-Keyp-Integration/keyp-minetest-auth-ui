@@ -12,5 +12,7 @@ declare namespace NodeJS {
     GOOGLE_SECRET: string
     AUTH0_ID: string
     AUTH0_SECRET: string
+    KEYP_CLIENT_ID: string
+    KEYP_COOKIE_SECRET: string
   }
 }

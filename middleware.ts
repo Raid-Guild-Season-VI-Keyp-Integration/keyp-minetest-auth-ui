@@ -9,6 +9,8 @@ export default withAuth({
         return token?.userRole === "admin"
       }
       // `/me` only requires the user to be logged in
+      console.log("token", token);
+
       return !!token
     },
   },
