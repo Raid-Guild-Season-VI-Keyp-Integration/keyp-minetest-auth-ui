@@ -13,10 +13,7 @@ import {
 } from "@chakra-ui/react";
 import styles from "./header.module.css";
 import LoginModal from "./modals/login-modal";
-import { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
-import KeypButtons from "./keyp-buttons";
-import AuthCode from "./authcode";
 import { mainMenuItems } from "../utils/constants";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/router";

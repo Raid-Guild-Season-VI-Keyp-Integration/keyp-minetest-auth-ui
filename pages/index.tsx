@@ -67,10 +67,10 @@ export default function IndexPage() {
       {loading && !session && <Box display="flex" justifyContent="center" textAlign="center" mt={6}><Text>Loading</Text> <Spinner size="sm" /></Box>}
 
       {user && !loading && (
-        <VStack mt={6}>
-          <Text>Signed in as {user.email ?? user.username}</Text>
+        <VStack mt={6} gap={6}>
+          <Text fontSize="2xl">gm {user.email ?? user.username}</Text>
           <VStack>
-            <Text>Your keyp wallet address is:</Text>
+            <Text className="font-bold">Your keyp wallet address is:</Text>
             <Text>{user?.address}</Text>
         </VStack>
           <Text>Copy the code below and paste into the Minetest login screen</Text>
