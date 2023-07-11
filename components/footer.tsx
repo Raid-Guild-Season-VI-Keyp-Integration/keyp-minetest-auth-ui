@@ -1,28 +1,19 @@
-import Link from "next/link"
 import styles from "./footer.module.css"
 import packageJSON from "../package.json"
+import { Box, Divider, ListItem, UnorderedList, Link } from "@chakra-ui/react"
 
 export default function Footer() {
   return (
-    <footer className={styles.footer}>
-      <hr />
-      <ul className={styles.navItems}>
-        <li className={styles.navItem}>
-          <a href="https://next-auth.js.org">Documentation</a>
-        </li>
-        <li className={styles.navItem}>
-          <a href="https://www.npmjs.com/package/next-auth">NPM</a>
-        </li>
-        <li className={styles.navItem}>
-          <a href="https://github.com/nextauthjs/next-auth-example">GitHub</a>
-        </li>
-        <li className={styles.navItem}>
-          <Link href="/policy">Policy</Link>
-        </li>
-        <li className={styles.navItem}>
-          <em>next-auth@{packageJSON.dependencies["next-auth"]}</em>
-        </li>
-      </ul>
-    </footer>
+    <Box as="footer" className={styles.footer} display="flex" flexFlow="column" justifyItems="center" gap={3}>
+      <Divider />
+      <UnorderedList className={styles.navItems} maxW="5xl" mx="auto" listStyleType="none">
+        <ListItem className={styles.navItem}>
+          <Link href="https://github.com/Raid-Guild-Season-VI-Keyp-Integration/next-auth-example/blob/main/README.md" isExternal>Documentation</Link>
+        </ListItem>
+        <ListItem className={styles.navItem}>
+          <Link href="https://github.com/Raid-Guild-Season-VI-Keyp-Integration" isExternal>GitHub</Link>
+        </ListItem>
+      </UnorderedList>
+    </Box>
   )
 }
