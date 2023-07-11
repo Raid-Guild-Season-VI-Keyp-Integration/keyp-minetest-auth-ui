@@ -4,10 +4,56 @@ import { Box, HStack, Heading, Spinner, Text, VStack } from "@chakra-ui/react"
 import AuthCode from "../components/authcode"
 import { Icon } from "@iconify/react"
 import LoginModal from "../components/modals/login-modal"
+import { useCallback, useEffect, useState } from "react"
+import { AUTH_SERVER_URL } from "../utils/constants"
 
 export default function IndexPage() {
   const { data: session, status } = useSession()
+  const [serverAuthed, setServerAuthed] = useState(false)
+  const [serverAuthenticating, setServerAuthenticating] = useState(false)
+  const [authCode, setAuthCode] = useState("")
+  const { user } = session ?? {}
   const loading = status === "loading"
+
+  const handleServerAuth = useCallback(
+    async (token: string) => {
+      try {
+        console.log("Authenticating with server", {AUTH_SERVER_URL});
+
+        setServerAuthenticating(true)
+        const response = await fetch(`${AUTH_SERVER_URL}/storeToken`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ token })
+        })
+
+        const data = await response.json()
+        const { error:authError } = data
+        if (!authError && data.authCode) {
+          setServerAuthed(true)
+          setAuthCode(data.authCode)
+          setServerAuthenticating(false)
+          return;
+        }
+
+        throw new Error(authError)
+
+      } catch (error: any) {
+        console.error(error)
+        console.log("Error authenticating with server", error.message);
+        setServerAuthenticating(false)
+      }
+    },
+    [],
+  )
+
+  useEffect(() => {
+    if (user && user.accessToken && !serverAuthed) {
+      handleServerAuth(user.accessToken)
+    }
+  }, [session, serverAuthed, handleServerAuth])
 
   return (
     <Layout>
@@ -20,11 +66,16 @@ export default function IndexPage() {
       )}
       {loading && !session && <Box display="flex" justifyContent="center" textAlign="center" mt={6}><Text>Loading</Text> <Spinner size="sm" /></Box>}
 
-      {session && !loading && (
+      {user && !loading && (
         <VStack mt={6}>
-          <Text>Signed in as {session.user.email ?? session.user.username}</Text>
+          <Text>Signed in as {user.email ?? user.username}</Text>
+          <VStack>
+            <Text>Your keyp wallet address is:</Text>
+            <Text>{user?.address}</Text>
+        </VStack>
           <Text>Copy the code below and paste into the Minetest login screen</Text>
-          {session.user.accessToken && <AuthCode code={session.user.accessToken} />}
+          {serverAuthed && !serverAuthenticating && <AuthCode code={authCode} pinStyle />}
+          {!serverAuthed && serverAuthenticating && <Text><Spinner size="sm" /> Authenticating with server...</Text>}
         </VStack>
       )}
     </Layout>
