@@ -24,7 +24,7 @@ export const KeypButtons = () => {
         onClick={() => handleLoginClick("GOOGLE")}
         isLoading={loading}
       >
-        <Icon icon="ic:round-login" width={25} height={25} />&nbsp;
+        <Icon icon="pixelarticons:login" width={25} height={25} />&nbsp;
         Google
       </Button>
       <Button
@@ -35,7 +35,7 @@ export const KeypButtons = () => {
         onClick={() => handleLoginClick("TWITTER")}
         isLoading={loading}
       >
-        <Icon icon="ic:round-login" width={25} height={25} />&nbsp;
+        <Icon icon="pixelarticons:login" width={25} height={25} />&nbsp;
         Twitter
       </Button>
       <Button
@@ -46,7 +46,7 @@ export const KeypButtons = () => {
         onClick={() => handleLoginClick("DISCORD")}
         isLoading={loading}
       >
-        <Icon icon="ic:round-login" width={25} height={25} />&nbsp;
+        <Icon icon="pixelarticons:login" width={25} height={25} />&nbsp;
         Discord
       </Button>
     </Flex>
