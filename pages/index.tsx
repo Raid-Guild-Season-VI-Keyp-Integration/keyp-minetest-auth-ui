@@ -126,7 +126,7 @@ export default function IndexPage() {
               <Spinner size="sm" /> Authenticating with server...
             </Text>
           )}
-          {user.accessToken && user.address ? (
+          {serverAuthed && !serverAuthenticating ? (
             <Button
               display="inline-flex"
               gap={1}
