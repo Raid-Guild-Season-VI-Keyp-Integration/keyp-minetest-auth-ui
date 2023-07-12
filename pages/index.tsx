@@ -12,21 +12,22 @@ export default function IndexPage() {
   const [serverAuthed, setServerAuthed] = useState(false)
   const [serverAuthenticating, setServerAuthenticating] = useState(false)
   const [authCode, setAuthCode] = useState("")
+  const [serverError, setServerError] = useState<Error>()
   const { user } = session ?? {}
   const loading = status === "loading"
 
   const handleServerAuth = useCallback(
-    async (token: string) => {
+    async (token: string, address: string) => {
       try {
         console.log("Authenticating with server", {AUTH_SERVER_URL});
 
         setServerAuthenticating(true)
-        const response = await fetch(`${AUTH_SERVER_URL}/storeToken`, {
+        const response = await fetch(`${AUTH_SERVER_URL}/storeInfo`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify({ token })
+          body: JSON.stringify({ token, address })
         })
 
         const data = await response.json()
@@ -44,20 +45,22 @@ export default function IndexPage() {
         console.error(error)
         console.log("Error authenticating with server", error.message);
         setServerAuthenticating(false)
+        setServerError(error)
       }
     },
     [],
   )
 
   useEffect(() => {
-    if (user && user.accessToken && !serverAuthed) {
-      handleServerAuth(user.accessToken)
+    if (user && user.accessToken && user.address && !serverAuthed) {
+      handleServerAuth(user.accessToken, user.address)
     }
-  }, [session, serverAuthed, handleServerAuth])
+  }, [user, serverAuthed, handleServerAuth])
 
   return (
     <Layout>
       <Heading as="h1">Minetest Authentication</Heading>
+      <Box position="absolute" top={20} left={'50%'} transformOrigin="center" transform="auto" translateX={'-25%'} color="orange.500">{AUTH_SERVER_URL}</Box>
       {!session && !loading && (
         <VStack mt={8} gap={6}>
           <Text>Login to get your Minetest authcode</Text>
@@ -73,9 +76,10 @@ export default function IndexPage() {
             <Text className="font-bold">Your keyp wallet address is:</Text>
             <Text>{user?.address}</Text>
         </VStack>
-          <Text>Copy the code below and paste into the Minetest login screen</Text>
+          {serverError ? <Text color="red.500">{serverError.message}</Text> : <Text>Copy the code below and paste into the Minetest login screen</Text>}
           {serverAuthed && !serverAuthenticating && <AuthCode code={authCode} pinStyle />}
           {!serverAuthed && serverAuthenticating && <Text><Spinner size="sm" /> Authenticating with server...</Text>}
+
         </VStack>
       )}
     </Layout>

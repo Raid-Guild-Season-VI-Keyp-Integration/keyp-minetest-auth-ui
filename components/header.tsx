@@ -13,10 +13,12 @@ import {
 } from "@chakra-ui/react";
 import styles from "./header.module.css";
 import LoginModal from "./modals/login-modal";
-import { Icon } from "@iconify/react";
+import Icon from "./CustomIcon";
+import Image from './CustomImage';
 import { mainMenuItems } from "../utils/constants";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/router";
+import keypIcon from '../assets/icons/keyp-logo.svg';
 interface NavLinkProps {
   children: React.ReactNode;
   href: string;
@@ -100,8 +102,14 @@ export default function Header() {
         flex={{ base: "0 0 45%", md: "0 0 15%" }}
         w={{ base: "45%", md: "15%" }}
         zIndex={20}
+        sx={{
+          a: {
+            display: 'inline-flex',
+            alignItems: 'center'
+          }
+        }}
       >
-        <NavLink href="/">KeypMine</NavLink>
+        <NavLink href="/"><Image src={keypIcon} maxH={5} maxW="auto" mr={1}  alt="keyp logo" /> KeypMine</NavLink>
       </Box>
       <HStack as="nav" maxW="5xl" display={{ base: "none", md: "flex" }}>
         {mainMenuItems.map((item) => {
