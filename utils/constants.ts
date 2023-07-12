@@ -13,7 +13,7 @@ const mainMenuItems = [
   // },
 ];
 
-const AUTH_SERVER_URL = process.env.NEXT_PUBLIC_AUTH_SERVER_URL || 'http://localhost:3000';
+const AUTH_SERVER_URL = process.env.NEXT_PUBLIC_AUTH_SERVER_URL || 'http://localhost:4269';
 
 export {
   mainMenuItems,

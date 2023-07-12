@@ -5,7 +5,7 @@
   "bugs": {
     "url": "https://github.com/nextauthjs/next-auth/issues"
   },
-  "homepage": "https://next-auth-example.vercel.app",
+  "homepage": "https://keypmine.luxumbra.dev",
   "scripts": {
     "dev": "next -p 3420",
     "build": "next build",

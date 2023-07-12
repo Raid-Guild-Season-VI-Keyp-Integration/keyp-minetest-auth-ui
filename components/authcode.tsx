@@ -26,7 +26,7 @@ const AuthCode = ({ code, pinStyle }: AuthCodeProps) => {
     fontWeight: "normal",
     color: hasCopied ? 'green.500' : "whiteAlpha.700",
     textAlign: "center",
-    h: 12,
+    h: 'auto',
   };
 
   const numberStyles = {

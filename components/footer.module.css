@@ -9,6 +9,13 @@
 }
 
 .navItem {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   margin-right: 1rem;
+
+}
+
+.navItem a {
+  display: inline-flex;
+  align-items: center;
 }

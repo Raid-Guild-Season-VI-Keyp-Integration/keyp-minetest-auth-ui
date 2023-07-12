@@ -1,51 +1,39 @@
-> The example repository is maintained from a [monorepo](https://github.com/nextauthjs/next-auth/tree/main/apps/examples/nextjs). Pull Requests should be opened against [`nextauthjs/next-auth`](https://github.com/nextauthjs/next-auth).
 
 <p align="center">
    <br/>
-   <a href="https://authjs.dev" target="_blank">
-   <img height="64" src="https://authjs.dev/img/logo/logo-sm.png" />
+   <a href="https://www.usekeyp.com/" target="_blank">
+   <img height="64" src="https://uploads-ssl.webflow.com/63b5a92988dfb03cc1e4d51b/63bd64ad5c5b0744e8bf496b_Keyp-Logo-White.svg" />
    </a>
-   <a href="https://nextjs.org" target="_blank">
-   <img height="64" src="https://nextjs.org/static/favicon/android-chrome-192x192.png" />
+   <a href="https://www.minetest.net/" target="_blank">
+   <img height="64" src="https://www.minetest.net/media/icon.svg" />
    </a>
-   <h3 align="center"><b>NextAuth.js</b> - Example App</h3>
+   <h3 align="center">Keyp & Minetest Integration</h3>
    <p align="center">
-   Open Source. Full Stack. Own Your Data.
-   </p>
-   <p align="center" style="align: center;">
-      <a href="https://npm.im/next-auth">
-        <img alt="npm" src="https://img.shields.io/npm/v/next-auth?color=green&label=next-auth&style=flat-square">
-      </a>
-      <a href="https://bundlephobia.com/result?p=next-auth-example">
-        <img src="https://img.shields.io/bundlephobia/minzip/next-auth?label=size&style=flat-square" alt="Bundle Size"/>
-      </a>
-      <a href="https://www.npmtrends.com/next-auth">
-        <img src="https://img.shields.io/npm/dm/next-auth?label=downloads&style=flat-square" alt="Downloads" />
-      </a>
-      <a href="https://npm.im/next-auth">
-        <img src="https://img.shields.io/badge/TypeScript-blue?style=flat-square" alt="TypeScript" />
-      </a>
+   Powerful Web3 Onboarding. Open Source. Simple.
    </p>
 </p>
 
 ## Overview
+This application is the frontend to an integration of Keyp and Minetest. It enables the user to create a Web3 compatible user account and login to a hosted [Minetest instance](https://github.com/Raid-Guild-Season-VI-Keyp-Integration/keyp-minetest-mod) using a [tiny authentication server](https://github.com/Raid-Guild-Season-VI-Keyp-Integration/auth-server) written in ExpressJS. For more information on this integration and who built it, checkout the project [README](https://github.com/Raid-Guild-Season-VI-Keyp-Integration)
 
-NextAuth.js is a complete open-source authentication solution.
+### useKeyp
+Improve onboarding and payments in your games & apps effortlessly with OAuth logins and credit card transactions. Use simple API calls to verify users, create, transfer & airdrop assets.
 
-This is an example application that shows how `next-auth` is applied to a basic Next.js app.
+### MineTest
+An open source voxel game engine. Play one of our many games, mod a game to your liking, make your own game, or play on a multiplayer server.
 
-The deployed version can be found at [`next-auth-example.vercel.app`](https://next-auth-example.vercel.app)
+The deployed frontend can be found at [`keypmine.luxumbra.dev`](https://keypmine.luxumbra.dev/). To make use of the
 
-Go to [next-auth.js.org](https://next-auth.js.org) for more information and documentation.
+Go to [docs.usekeyp.com](https://docs.usekeyp.com/) for more information and documentation.
 
 ## Getting Started
 
 ### 1. Clone the repository and install dependencies
 
 ```
-git clone https://github.com/nextauthjs/next-auth-example.git
-cd next-auth-example
-npm install
+git clone https://github.com/Raid-Guild-Season-VI-Keyp-Integration/keyp-minetest-auth-ui
+cd keyp-minetest-auth-ui // or whatever directory you named it
+pnpm install
 ```
 
 ### 2. Configure your local environment
@@ -56,54 +44,44 @@ Copy the .env.local.example file in this directory to .env.local (which will be 
 cp .env.local.example .env.local
 ```
 
-Add details for one or more providers (e.g. Google, Twitter, GitHub, Email, etc).
+Add details for the Keyp provider. These details can be obtained from https://dev.usekeyp.com/ once you have signed up for a dev account and created a client in the portal.
 
-#### Database
+### 2. Start the application
 
-A database is needed to persist user accounts and to support email sign in. However, you can still use NextAuth.js for authentication without a database by using OAuth for authentication. If you do not specify a database, [JSON Web Tokens](https://jwt.io/introduction) will be enabled by default.
-
-You **can** skip configuring a database and come back to it later if you want.
-
-For more information about setting up a database, please check out the following links:
-
-- Docs: [next-auth.js.org/adapters/overview](https://next-auth.js.org/adapters/overview)
-
-### 3. Configure Authentication Providers
-
-1. Review and update options in `pages/api/auth/[...nextauth].js` as needed.
-
-2. When setting up OAuth, in the developer admin page for each of your OAuth services, you should configure the callback URL to use a callback path of `{server}/api/auth/callback/{provider}`.
-
-e.g. For Google OAuth you would use: `http://localhost:3000/api/auth/callback/google`
-
-A list of configured providers and their callback URLs is available from the endpoint `/api/auth/providers`. You can find more information at https://next-auth.js.org/configuration/providers/oauth
-
-3. You can also choose to specify an SMTP server for passwordless sign in via email.
-
-### 4. Start the application
-
-To run your site locally, use:
+To run the app locally, use:
 
 ```
-npm run dev
+pnpm dev
 ```
 
 To run it in production mode, use:
 
 ```
-npm run build
-npm run start
+pnpm build
+pnpm start
 ```
 
 ### 5. Preparing for Production
 
-Follow the [Deployment documentation](https://authjs.dev/guides/basics/deployment) or deploy the example instantly using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-auth-example)
+Follow the [Vercel Deployment documentation](https://authjs.dev/guides/basics/deployment) then the quickest way to deploy the frontend is to install the [Vercel command-line interface](https://vercel.com/docs/cli):
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/nextauthjs/next-auth-example&project-name=next-auth-example&repository-name=next-auth-example)
+```
+pnpm i -g vercel
+```
+Then run the vercel command which will log you into your vercel account and walk you through the deployment process and will automatically import your env vars.
+```
+vercel
+```
+Once deployed you can use `vercel` to deploy a preview or `vercel --prod` to deploy the production build.
 
 ## Acknowledgements
 
-<a href="https://vercel.com?utm_source=nextauthjs&utm_campaign=oss">
-<img width="170px" src="https://raw.githubusercontent.com/nextauthjs/next-auth/main/docs/static/img/powered-by-vercel.svg" alt="Powered By Vercel" />
+<a href="https://www.usekeyp.com/">
+<img width="125px" src="https://uploads-ssl.webflow.com/63b5a92988dfb03cc1e4d51b/63b6e17a133ca72c671f0d89_Keyp-Logo.svg" alt="Authentication & Web3 Onboarding from Keyps " />
 </a>
-<p align="left">Thanks to Vercel sponsoring this project by allowing it to be deployed for free for the entire Auth.js Team</p>
+<p align="left">Thanks to @CupOJoseph of Keyp for the opportunity</p>
+
+<a href="https://p2pcloud.io/">
+<img width="125px" src="https://p2pcloud.io/design/img/logo.svg" alt="App hosted by P2PCloud" />
+</a>
+<p align="left">Thanks to P2PCloud for providing secure, decentralized hosting for this project and allowing it to be deployed for free on one of their encrypted VMs</p>
