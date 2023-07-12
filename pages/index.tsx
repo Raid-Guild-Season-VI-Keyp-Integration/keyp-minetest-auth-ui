@@ -2,7 +2,7 @@ import { useSession } from "next-auth/react"
 import Layout from "../components/layout"
 import { Box, HStack, Heading, Spinner, Text, VStack } from "@chakra-ui/react"
 import AuthCode from "../components/authcode"
-import { Icon } from "@iconify/react"
+import Icon from "../components/CustomIcon"
 import LoginModal from "../components/modals/login-modal"
 import { useCallback, useEffect, useState } from "react"
 import { AUTH_SERVER_URL } from "../utils/constants"
@@ -60,7 +60,11 @@ export default function IndexPage() {
   return (
     <Layout>
       <Heading as="h1">Minetest Authentication</Heading>
-      <Box position="absolute" top={20} left={'50%'} transformOrigin="center" transform="auto" translateX={'-25%'} color="orange.500">{AUTH_SERVER_URL}</Box>
+      {AUTH_SERVER_URL.includes('localhost') ? (
+        <Box position="absolute" top={20} left={'50%'} transformOrigin="center" transform="auto" translateX={'-25%'} color="orange.500"><Icon icon="gg:media-live" maxW={8} /></Box>
+      ) : (
+        <Box position="absolute" top={20} left={'50%'} transformOrigin="center" transform="auto" translateX={'-25%'} color="green.500"><Icon icon="gg:media-live" maxW={8} /></Box>
+      )}
       {!session && !loading && (
         <VStack mt={8} gap={6}>
           <Text>Login to get your Minetest authcode</Text>
