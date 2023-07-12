@@ -23,7 +23,7 @@ export default function Footer() {
             </Tooltip>
         </ListItem>
         <ListItem className={styles.navItem}>
-          <Link href="https://github.com/Raid-Guild-Season-VI-Keyp-Integration/next-auth-example/blob/main/README.md" isExternal><Icon icon="file-icons:readthedocs" mr={1} /> Docs</Link>
+          <Link href="https://github.com/Raid-Guild-Season-VI-Keyp-Integration/keyp-minetest-auth-ui/blob/main/README.md" isExternal><Icon icon="file-icons:readthedocs" mr={1} /> Docs</Link>
         </ListItem>
         <ListItem className={styles.navItem}>
           <Link href="https://github.com/Raid-Guild-Season-VI-Keyp-Integration" isExternal><Icon icon="mdi:github" mr={1} /> GitHub</Link>

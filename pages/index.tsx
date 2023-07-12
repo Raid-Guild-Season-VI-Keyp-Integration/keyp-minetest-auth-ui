@@ -67,31 +67,6 @@ export default function IndexPage() {
   return (
     <Layout>
       <Heading as="h1">Minetest Authentication</Heading>
-      {AUTH_SERVER_URL.includes("localhost") ? (
-        <Box
-          position="absolute"
-          top={20}
-          left={"50%"}
-          transformOrigin="center"
-          transform="auto"
-          translateX={"-25%"}
-          color="orange.500"
-        >
-          <Icon icon="gg:media-live" maxW={8} />
-        </Box>
-      ) : (
-        <Box
-          position="absolute"
-          top={20}
-          left={"50%"}
-          transformOrigin="center"
-          transform="auto"
-          translateX={"-25%"}
-          color="green.500"
-        >
-          <Icon icon="gg:media-live" maxW={8} />
-        </Box>
-      )}
       {!session && !loading && (
         <VStack mt={8} gap={6}>
           <Text>Login to get your Minetest authcode</Text>
